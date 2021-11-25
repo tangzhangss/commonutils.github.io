@@ -2,27 +2,27 @@
 
 ### 日志
 
-        @Target(ElementType.METHOD)
-        @Retention(RetentionPolicy.RUNTIME)
-        @Documented
-        public @interface SysLog {
-            String value() default "";
-        }
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface SysLog {
+    String value() default "";
+}
 
-        @Pointcut("@annotation(com.tangzhangss.commonutils.aspect.syslog.SysLog)")
-        public void logPointCut() {}
+@Pointcut("@annotation(com.tangzhangss.commonutils.aspect.syslog.SysLog)")
+public void logPointCut() {}
 
-        @Around("logPointCut()")
-        public Object around(ProceedingJoinPoint point) throws Throwable {
-           long beginTime = System.currentTimeMillis();
-           //执行方法
-           Object result = point.proceed();
-           //执行时长(毫秒)
-           long time = System.currentTimeMillis() - beginTime;
-           //保存日志
-           saveSysLog(point, time, JSONUtil.toJsonPrettyStr(result));
-           return result;
-        }
+@Around("logPointCut()")
+public Object around(ProceedingJoinPoint point) throws Throwable {
+   long beginTime = System.currentTimeMillis();
+   //执行方法
+   Object result = point.proceed();
+   //执行时长(毫秒)
+   long time = System.currentTimeMillis() - beginTime;
+   //保存日志
+   saveSysLog(point, time, JSONUtil.toJsonPrettyStr(result));
+   return result;
+}
 
 
 
