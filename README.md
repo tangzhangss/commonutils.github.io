@@ -1,4 +1,4 @@
-## COMMON-UTILS DESC PAGES
+## COMMON-UTILS PAGES
 
 ### 日志
 
@@ -215,6 +215,28 @@ public boolean checkToken(ServletRequest servletRequest, ServletResponse servlet
     return true;
 }
 ```
+### JpaQuery
+
+/**
+ * querydsl 查询方法
+ * 这个方法带分页  不能多字段分组
+ * 默认带clientId,不会携带usable=true,,需要请在request和paramsMap 添加 usable@eq,true or false
+ *
+ * 条件构建不支持级联（A.b@EQ --- 20210421支持）
+ * 不支持排序分组，如果有排序分组请在调用此方法之前处理query对象
+ * @param request 前端请求--构建查询条件-格式如：base里面的get()
+ * @param paramsMap 后端条件构建
+ * @param entityPathMap 后端条件构建
+ *                      A.b@EQ  =>  map.put("A",entityPath)
+ *                      A.B.c@EQ  =>  map.put("A.B",entityPath)
+ * @return
+ */
+public QueryResults getQueryFetchResults(HttpServletRequest request, Map<String, String> paramsMap,Map<String,EntityPath> entityPathMap) {
+    JPAQuery query = jpaQuery.get();
+    if (query == null) { return null; }
+    HandleJPAQuery(request,paramsMap,entityPathMap);
+    return query.fetchResults();
+}
 
 ### Jekyll Themes
 
