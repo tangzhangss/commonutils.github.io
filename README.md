@@ -181,6 +181,7 @@ public void checkAndSetCodeFormula(List<TT> datas,String [] codes,String columnN
     }
 }
 ```    
+
 ----
 ### TOKEN
 
@@ -215,8 +216,11 @@ public boolean checkToken(ServletRequest servletRequest, ServletResponse servlet
     return true;
 }
 ```
+
+----
 ### JpaQuery
 
+```
 /**
  * querydsl 查询方法
  * 这个方法带分页  不能多字段分组
@@ -237,11 +241,13 @@ public QueryResults getQueryFetchResults(HttpServletRequest request, Map<String,
     HandleJPAQuery(request,paramsMap,entityPathMap);
     return query.fetchResults();
 }
-
+```
+----
 ### Jekyll Themes
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/tangzhangss/commonutils.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
+----
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
