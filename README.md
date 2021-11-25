@@ -1,8 +1,10 @@
 ## COMMON-UTILS DESC PAGES
 
-### 日志
+### 部分代码
 
 ```
+#### 日志
+
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -24,9 +26,9 @@ public Object around(ProceedingJoinPoint point) throws Throwable {
    saveSysLog(point, time, JSONUtil.toJsonPrettyStr(result));
    return result;
 }
-```
-### 通用接口服务
-```
+
+#### 通用接口服务
+
 /**
  * 构建查询条件
  * @param key 如：Ａ＠ＥＱ Ａ.B@IN A@LIKE  A_EQ,B_LIKE@OR
@@ -178,6 +180,8 @@ public void checkAndSetCodeFormula(List<TT> datas,String [] codes,String columnN
     }
 }
 ```
+
+
 
 ### Jekyll Themes
 
