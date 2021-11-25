@@ -2,6 +2,7 @@
 
 ### 日志
 
+```
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -23,7 +24,7 @@ public Object around(ProceedingJoinPoint point) throws Throwable {
    saveSysLog(point, time, JSONUtil.toJsonPrettyStr(result));
    return result;
 }
-
+```
 
 
 ### Jekyll Themes
