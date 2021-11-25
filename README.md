@@ -26,6 +26,7 @@ public Object around(ProceedingJoinPoint point) throws Throwable {
 }
 ```
 
+----
 ### 通用接口服务
 
 ```
@@ -180,11 +181,39 @@ public void checkAndSetCodeFormula(List<TT> datas,String [] codes,String columnN
     }
 }
 ```    
-
-### 国际化
+----
+### TOKEN
 
 ```
-ssss
+public boolean checkToken(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+
+    HttpServletRequest req = (HttpServletRequest)servletRequest;
+
+    String tzTk = req.getHeader(AUTH);
+
+    JSONObject userInfo = null;
+
+    if (StringUtils.isNotBlank(tzTk)) {
+        //token格式为(Header:X-Token)UUID.randomUUID()+"&"+用户ID
+        Object data = redisService.get(tzTk);
+        if (data!=null) {
+            userInfo = JSONUtil.parseObj(data);
+            //存在该用户重新更新时间
+            redisService.set(tzTk, JSONUtil.toJsonStr(userInfo),54000l);//15分钟没有操作提示重新登录
+        }
+    }
+    String path = req.getServletPath();//获取请求路径
+    // 判断如果没登录则报错
+    if (userInfo==null && !allowedPath(path)) return invalidTokenMsgHandle(servletRequest,servletResponse, Translator.get("unauthorized"));
+
+    //设置匿名请求的用户信息
+    if(userInfo==null){
+        userInfo = getAnonymousSysContext();
+    }
+    SysContext.setUser(userInfo);
+
+    return true;
+}
 ```
 
 ### Jekyll Themes
